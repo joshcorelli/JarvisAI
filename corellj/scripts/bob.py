@@ -94,3 +94,8 @@ while True:
         print(ans)
         pprint.pprint(li_commands)
         t2s(ans)
+        
+    if re.search('stop|break|exit|kill', res):
+        print("I cant believe you've done this...")
+        t2s("I cant believe you've done this...")
+        break
