@@ -9,6 +9,7 @@ obj = JarvisAI.JarvisAssistant(sync=True, token='94bdb0ac9d2f973461c46a3dd2eb0e'
 high_accuracy_chatbot_model=False, chatbot_large=True, backend_tts_api='pyttsx3')
 
 isMicOn=True
+show=True
 
 def t2s(text):
     obj.text2speech(text)
@@ -117,6 +118,15 @@ def micOff():
     isMicOn=False
     return
 
+def menu_show():
+    global show
+    if show:
+        menuCanvas.itemconfig(1, state='normal')
+        show=False
+    else:
+        menuCanvas.itemconfig(1, state='disabled')
+        show=True
+
 #Window Configurations
 window = Tk()
 window.title("Jarvis AI Capstone Project")
@@ -125,19 +135,21 @@ window['background']='#BEE3DB'
 #menuPhoto = PhotoImage(file = "put path here");
 
 #Labels
-testLabel = Label(window, text="Welcome to Eian Knudsen's and Joshua Corelli's capstone project!\nAsk me anything.", bg='#89B0AE')
+testLabel = Label(window, text="Capstone: Eian Knudsen & Joshua Corelli", bg='#89B0AE')
 testLabel.place(x=300, y=0)
 #Menu Button
-menuButton = Button(window, text="Menu", borderwidth=0, bg = '#BEE3DB', activebackground='#89B0AE', width=10, height = 5)
+menuButton = Button(window, text="Menu", command=menu_show, borderwidth=0, bg = '#BEE3DB', activebackground='#89B0AE', width=10, height = 5)
 menuButton.place(x=0, y=0)
 
 #Panel of button functions
-menuCanvas = Canvas(window, borderwidth=0, width=200, height=500)
+menuCanvas = Canvas(window, borderwidth=0, width=200, height=500, state='disabled')
 menuCanvas.place(x=77, y=0)
 
 #Buttons for the menu panel
 button1 = Button(menuCanvas, text="See Weather", borderwidth=0,width=20, height = 3)
 button1.pack()
+text_input = Text(window, height=5, width=20)
+text_input.pack()
 button2 = Button(menuCanvas, text="Open Website", borderwidth=0, width=20, height = 3)
 button2.pack()
 button3 = Button(menuCanvas, text="Open Application", borderwidth=0, width=20, height = 3)
