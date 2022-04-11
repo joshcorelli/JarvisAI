@@ -17,10 +17,13 @@ while True:
     res = obj.mic_input()
 
     if re.search('weather|temperature', res):
-        city = res.split(' ')[-1]
+        city = res.split('in ')[-1]
         weather_res = obj.weather(city=city)
         print(weather_res)
         t2s(weather_res)
+
+    if re.search('send email', res):
+        break
 
     if re.search('news', res):
         news_res = obj.news()
@@ -52,10 +55,12 @@ while True:
 
     if re.search('launch', res):
         dict_app = {
-            'chrome': 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
+            'chrome': 'C:\Program Files\Google\Chrome\Application\chrome.exe',
             'epic games': 'C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win32\EpicGamesLauncher.exe'
+            # 'notepad': 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Notepad',
+            # 'snipping tool': 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Snipping Tool',
+            # 'discord': 'C:\Users\joshu\AppData\Local\Discord\Update.exe --processStart Discord.exe'
         }
-
         app = res.split(' ', 1)[1]
         path = dict_app.get(app)
         if path is None:
@@ -65,7 +70,7 @@ while True:
             t2s('Launching: ' + app)
             obj.launch_any_app(path_of_app=path)
 
-    if re.search('hello', res):
+    if re.search('hello|hi|hey', res):
         print('Hi')
         t2s('Hi')
 
