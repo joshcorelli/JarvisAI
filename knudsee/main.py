@@ -37,6 +37,7 @@ def main():
 
     r_cmds = Menu(m_bar, tearoff=0)
     m_bar.add_cascade(label="Recent Commands",menu=r_cmds) #Adds list of commands, name Recent Commands
+    recent_cmds.add_cascade(r_cmds)
 
     window.geometry("700x500")
     window.state('zoomed')
