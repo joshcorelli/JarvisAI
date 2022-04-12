@@ -1,9 +1,13 @@
 #token = '94bdb0ac9d2f973461c46a3dd2eb0e'
 
+from idlist import myGmail, password, destination
 import JarvisAI
 import re
 import pprint
 import random
+import smtplib
+
+from regex import D
 
 # backend_tts_api='pyttsx3' for different voices options
 # backend_tts_api='gtts' for female voice by google text to speech library
@@ -12,6 +16,19 @@ high_accuracy_chatbot_model=False, chatbot_large=True, backend_tts_api='pyttsx3'
 
 def t2s(text):
     obj.text2speech(text)
+
+def sendemail(to, content):
+    try:
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail.ehlo()
+        mail.starttls()
+        mail.login(myGmail, password)
+        mail.sendmail(myGmail, to, content)
+        mail.close()
+        return True
+    except Exception as e:
+        print(e)
+        return False
 
 while True:
     res = obj.mic_input()
@@ -23,8 +40,23 @@ while True:
         t2s(weather_res)
 
     if re.search('send email', res):
-        break
-
+        try:
+            response = "What should I say?"
+            print(response)
+            t2s(response)
+            res = obj.mic_input()
+            content = res
+            to = destination
+            sendemail(to, content)
+            response = "Email has been sent successfully."
+            print(response)
+            t2s(response)
+        except Exception as e:
+            print(e)
+            response = "Unable to send the email"
+            print(response)
+            t2s(response)
+            
     if re.search('news', res):
         news_res = obj.news()
         pprint.pprint(news_res)
