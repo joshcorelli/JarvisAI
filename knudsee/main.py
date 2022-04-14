@@ -37,16 +37,43 @@ def web_input():
     print(cmd_canvas.winfo_children())
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
         i.destroy()
+    
+    text_inp = Entry(cmd_canvas)
+    cmd_canvas.create_window(150, 30, window=text_inp)
+
+    def get_website(str):
+        if len(cmd_canvas.winfo_children()) == 3:
+            cmd_canvas.winfo_children()[2].destroy()
+        entry_lbl = Label(cmd_canvas, text="Website: "+str, bg="#caf0f8")
+        cmd_canvas.create_window(150, 90, window=entry_lbl)
+
+    get_web = Button(cmd_canvas, text="Get Website", command=lambda: get_website(text_inp.get()))
+    cmd_canvas.create_window(150, 60, window=get_web)
     recent_cmds.read_file("Website\n")
 
 def topic_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
         i.destroy()
+    
+    text_inp = Entry(cmd_canvas)
+    cmd_canvas.create_window(150, 30, window=text_inp)
+
+    def get_topic(str):
+        if len(cmd_canvas.winfo_children()) == 3:
+            cmd_canvas.winfo_children()[2].destroy()
+        entry_lbl = Label(cmd_canvas, text="Topic: "+str, bg="#caf0f8")
+        cmd_canvas.create_window(150, 90, window=entry_lbl)
+    
+    get_top = Button(cmd_canvas, text="Get Topic", command=lambda: get_topic(text_inp.get()))
+    cmd_canvas.create_window(150, 60, window=get_top)
     recent_cmds.read_file("Topic\n")
 
 def mic_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
         i.destroy()
+    
+    mic_lbl = Label(cmd_canvas, text="Microphone On", bg="#caf0f8")
+    cmd_canvas.create_window(150, 90, window=mic_lbl)
     recent_cmds.read_file("Microphone\n")
 
 cmds = Menu(m_bar, tearoff=0)
