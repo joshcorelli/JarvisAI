@@ -1,11 +1,12 @@
 from unicodedata import name
-import JarvisAI
-import re
-import pprint
-import random
 from struct import pack_into
 from tkinter import *
+from multiprocessing import Process
 import recent_cmds
+import jarvisFunctions
+
+def mic_process():
+    jarvisFunctions.run_ai()
 
 # Main
 window = Tk()
@@ -26,8 +27,9 @@ def weather_input():
     def get_city(str):
         if len(cmd_canvas.winfo_children()) == 3:
             cmd_canvas.winfo_children()[2].destroy()
-        entry_lbl = Label(cmd_canvas, text="City: "+str, bg="#caf0f8")
-        cmd_canvas.create_window(150, 90, window=entry_lbl)
+        weather_str = jarvisFunctions.tell_weather(text_inp.get())
+        entry_lbl = Label(cmd_canvas, text=weather_str, bg="#caf0f8", wraplength=250)
+        cmd_canvas.create_window(150, 100, window=entry_lbl)
 
     get_wthr = Button(cmd_canvas, text="Get Weather", command=lambda: get_city(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_wthr)
@@ -74,7 +76,15 @@ def mic_input():
     
     mic_lbl = Label(cmd_canvas, text="Microphone On", bg="#caf0f8")
     cmd_canvas.create_window(150, 90, window=mic_lbl)
+
+    mic_process_var = Process(target=mic_process())
+    mic_process_var.start()
+    mic_process_var.join()
+
     recent_cmds.read_file("Microphone\n")
+
+prog_start_lbl = Label(cmd_canvas, text="Microphone On", bg="#caf0f8")
+cmd_canvas.create_window(150, 90, window=prog_start_lbl)
 
 cmds = Menu(m_bar, tearoff=0)
 m_bar.add_cascade(label="Menu", menu=cmds) #Adds list of commands, name Menu
@@ -91,6 +101,6 @@ recent_cmds.add_cascade(r_cmds)
 
 window.title('Jarvis AI Capstone')
 window.geometry("600x400")
-window.state('zoomed')
+#window.state('zoomed') #Choose whether to maximize window or not.
 
 window.mainloop()
