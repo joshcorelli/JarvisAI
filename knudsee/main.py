@@ -1,12 +1,9 @@
 from unicodedata import name
 from struct import pack_into
 from tkinter import *
-from multiprocessing import Process
+import threading
 import recent_cmds
 import jarvisFunctions
-
-def mic_process():
-    jarvisFunctions.run_ai()
 
 # Main
 window = Tk()
@@ -77,9 +74,9 @@ def mic_input():
     mic_lbl = Label(cmd_canvas, text="Microphone On", bg="#caf0f8")
     cmd_canvas.create_window(150, 90, window=mic_lbl)
 
-    mic_process_var = Process(target=mic_process())
+    mic_process_var = threading.Thread(target=jarvisFunctions.run_ai())
     mic_process_var.start()
-    mic_process_var.join()
+    #mic_process_var.join()
 
     recent_cmds.read_file("Microphone\n")
 
