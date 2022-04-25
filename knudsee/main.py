@@ -4,6 +4,7 @@ from tkinter import *
 import threading
 import recent_cmds
 import jarvisFunctions
+import obj_reader
 
 # Main
 window = Tk()
@@ -11,8 +12,12 @@ window = Tk()
 m_bar = Menu(window) #Add menu ontop of the window
 window.config(menu=m_bar) #Includes the menu bar
 
-cmd_canvas = Canvas(window, bg="#caf0f8", width=300, height=400)
+cmd_canvas = Canvas(window, bg="#caf0f8", width=300, height=400) #For command inputs
 cmd_canvas.grid(sticky=W)
+m_canvas = obj_reader.frame(window, width=300, height=400) #For 3D Models
+m_canvas.place(x=300, y=0)
+m_canvas.animate = 1
+m_canvas.after(100, m_canvas.printContext)
 
 # Function Declarations
 def weather_input():
@@ -101,3 +106,4 @@ window.geometry("600x400")
 #window.state('zoomed') #Choose whether to maximize window or not.
 
 window.mainloop()
+m_canvas.mainloop()
