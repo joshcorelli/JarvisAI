@@ -48,6 +48,7 @@ def web_input():
     def get_website(str):
         if len(cmd_canvas.winfo_children()) == 3:
             cmd_canvas.winfo_children()[2].destroy()
+        jarvisFunctions.open_website(text_inp.get())
         entry_lbl = Label(cmd_canvas, text="Website: "+str, bg="#caf0f8")
         cmd_canvas.create_window(150, 90, window=entry_lbl)
 
@@ -65,11 +66,32 @@ def topic_input():
     def get_topic(str):
         if len(cmd_canvas.winfo_children()) == 3:
             cmd_canvas.winfo_children()[2].destroy()
-        entry_lbl = Label(cmd_canvas, text="Topic: "+str, bg="#caf0f8")
-        cmd_canvas.create_window(150, 90, window=entry_lbl)
+        topic_str = jarvisFunctions.get_topic(text_inp.get())
+        entry_lbl = Label(cmd_canvas, text=topic_str, bg="#caf0f8", wraplength=250)
+        cmd_canvas.create_window(150, 200, window=entry_lbl)
     
     get_top = Button(cmd_canvas, text="Get Topic", command=lambda: get_topic(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_top)
+    recent_cmds.read_file("Topic\n")
+
+def news_input():
+    for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
+        i.destroy()
+
+    news_str = jarvisFunctions.get_news()
+    entry_lbl = Label(cmd_canvas, text="Top Story: "+news_str, bg="#caf0f8", wraplength=250)
+    cmd_canvas.create_window(150, 150, window=entry_lbl)
+
+    recent_cmds.read_file("Topic\n")
+
+def d_and_t():
+    for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
+        i.destroy()
+
+    dt_str = jarvisFunctions.get_dt()
+    entry_lbl = Label(cmd_canvas, text=dt_str, bg="#caf0f8", wraplength=250)
+    cmd_canvas.create_window(150, 150, window=entry_lbl)
+
     recent_cmds.read_file("Topic\n")
 
 def mic_input():
@@ -93,6 +115,8 @@ m_bar.add_cascade(label="Menu", menu=cmds) #Adds list of commands, name Menu
 cmds.add_command(label="Weather", command=weather_input)
 cmds.add_command(label="Open Website", command=web_input)
 cmds.add_command(label="Topic", command=topic_input)
+cmds.add_command(label="News", command=news_input)
+cmds.add_command(label="Date/Time", command=d_and_t)
 cmds.add_command(label="Microphone", command=mic_input)
 cmds.add_separator()
 cmds.add_command(label="Exit", command=quit)

@@ -15,6 +15,26 @@ def tell_weather(city_name):
     weather_string = obj.weather(city=city_name)
     return weather_string
 
+def open_website(website_name):
+    domain = website_name.split(' ')[-1]
+    obj.website_opener(domain)
+
+def get_topic(topic_name):
+    wiki_res = obj.tell_me(topic_name)
+    return wiki_res
+
+def get_news():
+    news_obj = obj.news()
+    pprint.pprint(news_obj)
+    return news_obj[0]
+
+def get_dt():
+    date_obj = obj.tell_me_date()
+    time_obj = obj.tell_me_time()
+    dt_str = "Date: " + date_obj + "\nTime: " + time_obj
+    return dt_str
+    
+
 def run_ai():
     while mic_on:
         res = obj.mic_input()
