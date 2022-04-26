@@ -1,12 +1,14 @@
 #token = '94bdb0ac9d2f973461c46a3dd2eb0e'
 
-from idlist import myGmail, password, destination
+from idlist import myGmail, password
+from Emails import emailList
 import JarvisAI
 import re
 import pprint
 import random
-
 from regex import D
+
+isSendingEmail = False
 
 # backend_tts_api='pyttsx3' for different voices options
 # backend_tts_api='gtts' for female voice by google text to speech library
@@ -18,6 +20,7 @@ def t2s(text):
 
 while True:
     res = obj.mic_input()
+    isSendingEmail = False
 
     if re.search('weather|temperature', res):
         city = res.split('in ')[-1]
@@ -27,6 +30,7 @@ while True:
 
     if re.search('send email', res):
         try:
+            isSendingEmail = True
             response = "What should I say?"
             print(response)
             t2s(response)
@@ -39,12 +43,25 @@ while True:
             res = obj.mic_input()
             subject = res
 
-            to = destination
-            # response = "Who would you like to send this email to. Please provide the name before the @gmail.com"
-            # print(response)
-            # t2s(response)
-            # res = obj.mic_input()
-            # to = response + "@gmail.com"
+            response = "Who would you like to send this email to. Please provide the number that corresponds to the name:"
+            print(response)
+            t2s(response)
+            i = 1
+            for x in emailList:
+                print(i, end = ': ')
+                print(emailList[x])
+                i+=1
+
+            res = obj.mic_input()
+            try:
+                # if res != int:
+                #     pass
+                to = emailList[res]
+            except Exception as e:
+                print(e)
+                response = "Invalid number..."
+                print(response)
+                t2s(response)
 
             obj.send_mail(to, subject, content, myGmail, password)
 
@@ -88,9 +105,9 @@ while True:
     if re.search('launch', res):
         dict_app = {
             'chrome': 'C:\Program Files\Google\Chrome\Application\chrome.exe',
-            'epic games': 'C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win32\EpicGamesLauncher.exe'
-            # 'notepad': 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Notepad',
-            # 'snipping tool': 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Snipping Tool',
+            'epic games': 'C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win32\EpicGamesLauncher.exe',
+            # 'notepad': '%windir%\system32\\notepad.exe',
+            # 'snipping tool': '%windir%\system32\SnippingTool.exe'
             # 'discord': 'C:\Users\joshu\AppData\Local\Discord\Update.exe --processStart Discord.exe'
         }
         app = res.split(' ', 1)[1]
