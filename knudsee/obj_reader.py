@@ -61,7 +61,8 @@ class frame(OpenGLFrame):
         GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
         GL.glMatrixMode(GL.GL_MODELVIEW)
         GL.glLoadIdentity()
-        GL.glRotatef(self.rot, 0.5, 0.5, 0.5)
+        GL.glTranslatef(1.5, 1.5, -5)
+        GL.glRotatef(self.rot, 3, 1, 1)
         GLU.gluLookAt(0, -3, 0, 0, 0, 0, 0, 0, 1)
         tm = time.time() - self.start
         self.nframes += 1
