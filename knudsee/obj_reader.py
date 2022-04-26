@@ -46,6 +46,7 @@ def Cube():
     GL.glEnd()
 
 class frame(OpenGLFrame):
+    rot = 0
     def initgl(self): #When frame is created start
         GL.glViewport(0, 0, self.width, self.height)
         GL.glMatrixMode(GL.GL_PROJECTION)
@@ -56,9 +57,11 @@ class frame(OpenGLFrame):
         self.nframes = 0
 
     def redraw(self): #Draws frame
+        self.rot += .5
         GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
         GL.glMatrixMode(GL.GL_MODELVIEW)
         GL.glLoadIdentity()
+        GL.glRotatef(self.rot, 0.5, 0.5, 0.5)
         GLU.gluLookAt(0, -3, 0, 0, 0, 0, 0, 0, 1)
         tm = time.time() - self.start
         self.nframes += 1
