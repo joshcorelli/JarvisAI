@@ -51,14 +51,14 @@ class frame(OpenGLFrame):
         GL.glMatrixMode(GL.GL_PROJECTION)
         GL.glLoadIdentity()
         GLU.gluPerspective(90, self.width/self.height, 0.1, 10.0)
-        #GL.glMatrixMode(GL.GL_MODELVIEW)
-        #GL.glLoadIdentity()
         GL.glClearColor(0.8, 0.9, 0.8, 0.0)
         self.start = time.time()
         self.nframes = 0
 
     def redraw(self): #Draws frame
         GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
+        GL.glMatrixMode(GL.GL_MODELVIEW)
+        GL.glLoadIdentity()
         GLU.gluLookAt(0, -3, 0, 0, 0, 0, 0, 0, 1)
         tm = time.time() - self.start
         self.nframes += 1
