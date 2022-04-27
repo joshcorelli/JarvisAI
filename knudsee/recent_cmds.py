@@ -2,7 +2,7 @@ from numpy import append
 from tkinter import *
 
 def read_file(str):
-    rd_file = open('Master/recent_commands.txt', 'r+') #Read and write in the file.
+    rd_file = open('knudsee/recent_commands.txt', 'r+') #Read and write in the file.
     file_lines = rd_file.readlines()
     file_length = len(file_lines)
 
@@ -21,7 +21,7 @@ def read_file(str):
     rd_file.close()
 
 def add_cascade(cscd): #cscd meaning cascade.
-    txt_file = open('Master/recent_commands.txt', 'r')
+    txt_file = open('knudsee/recent_commands.txt', 'r')
     file_lines = txt_file.readlines()
 
     for i in file_lines:
