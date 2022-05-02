@@ -1,5 +1,6 @@
 #token = '94bdb0ac9d2f973461c46a3dd2eb0e'
 
+from email.mime import application
 from idlist import myGmail, password
 from Emails import emailList
 import JarvisAI
@@ -7,6 +8,7 @@ import re
 import pprint
 import random
 from regex import D
+import application
 
 # backend_tts_api='pyttsx3' for different voices options
 # backend_tts_api='gtts' for female voice by google text to speech library
@@ -40,6 +42,16 @@ def get_dt():
     time_obj = obj.tell_me_time()
     dt_str = "Date: " + date_obj + "\nTime: " + time_obj
     return dt_str
+
+def get_application(application_name):
+    application.read_file()
+    path = application.dict_app.get(application_name)
+    if path is None:
+        app_err = "Application path not found"
+        return app_err
+    else:
+        obj.launch_any_app(path_of_app=path)
+        return "Opening " + application_name
     
 
 def run_ai():
@@ -128,15 +140,9 @@ def run_ai():
 
         #NEEDS FIXING
         if re.search('launch', res):
-            dict_app = {
-                'chrome': 'C:\Program Files\Google\Chrome\Application\chrome.exe',
-                'epic games': 'C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win32\EpicGamesLauncher.exe',
-                'notepad': 'notepad.exe',
-                # 'snipping tool': '%windir%\system32\SnippingTool.exe'
-                # 'discord': 'C:\Users\joshu\AppData\Local\Discord\Update.exe --processStart Discord.exe'
-            }
             app = res.split(' ', 1)[1]
-            path = dict_app.get(app)
+            application.read_file()
+            path = application.dict_app.get(app)
             if path is None:
                 t2s('Application path not found')
                 print('Application path not found')
