@@ -78,6 +78,6 @@ class frame(OpenGLFrame):
         GLU.gluLookAt(rotX, rotY, rotZ, 0, 0, 0, 0, 0, 1)
         tm = time.time() - self.start
         self.nframes += 1
-        #Cube()
-        RainCloud()
+        Cube()
+        #RainCloud()
 
