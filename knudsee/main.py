@@ -6,6 +6,21 @@ import recent_cmds
 import jarvisFunctions
 import obj_reader
 
+def key_inp(event):
+    print(event.keysym)
+    if event.keysym == 'q':
+        obj_reader.rotX += 1
+    elif event.keysym == 'a':
+        obj_reader.rotX -= 1
+    elif event.keysym == 'w':
+        obj_reader.rotY += 1
+    elif event.keysym == 's':
+        obj_reader.rotY -= 1
+    elif event.keysym == 'e':
+        obj_reader.rotZ += 1
+    elif event.keysym == 'd':
+        obj_reader.rotZ -= 1
+
 # Main
 window = Tk()
 
@@ -129,5 +144,6 @@ window.title('Jarvis AI Capstone')
 window.geometry("600x400")
 #window.state('zoomed') #Choose whether to maximize window or not.
 
+window.bind("<KeyRelease>", key_inp)
 window.mainloop()
 m_canvas.mainloop()
