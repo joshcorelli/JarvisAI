@@ -5,7 +5,7 @@ import threading
 import recent_cmds
 import jarvisFunctions
 import obj_reader
-from application import openFile, editFile
+from application import openFile, editFile, file_nms
 
 # Main
 window = Tk()
@@ -105,7 +105,7 @@ def application():
     def get_application(str):
         app_status = jarvisFunctions.get_application(text_inp.get().lower())
         entry_lbl = Label(cmd_canvas, text=app_status, bg="#caf0f8", wraplength=250)
-        cmd_canvas.create_window(150, 200, window=entry_lbl)
+        cmd_canvas.create_window(150, 150, window=entry_lbl)
         text_inp.delete(0, END)
 
     def add_edit_app():
@@ -145,6 +145,16 @@ def application():
     addEd = Button(cmd_canvas, text="Add/Edit application", command=lambda: add_edit_app())
     cmd_canvas.create_window(150, 100, window=addEd)
     recent_cmds.read_file("Application\n")
+
+    scrollbar = Scrollbar(cmd_canvas)
+    mylist = Listbox(cmd_canvas, yscrollcommand = scrollbar.set)
+    cmd_canvas.create_window(150, 250, window=mylist)
+    with open(file_nms, 'r') as file:
+        lines = file.readlines()
+        for line in lines: 
+            mylist.insert(END, line)
+    
+    scrollbar.config( command = mylist.yview )
 
 def mic_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
