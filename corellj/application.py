@@ -1,8 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
 
-from numpy import append
-
 dict_app = {'chrome': 'C:\Program Files\Google\Chrome\Application\chrome.exe'}
 
 file_nms = "corellj/application_names.txt"
@@ -57,7 +55,6 @@ def openFile(application_name):
         filepath = filedialog.askopenfilename(initialdir="C:/", title="Select an executable", filetypes=[("executables", "*.exe")])
         add_file(filepath, application_name)
 
-# Only compares the last line of the file ----NEEDS FIXING----
 def check_if_shotcut_name_exists(application_name):
     already_exists = False
     with open(file_nms, 'r') as file:
@@ -68,10 +65,12 @@ def check_if_shotcut_name_exists(application_name):
     return already_exists
 
 def editFile(app_name, new_app_name):
-    status = check_if_shotcut_name_exists(app_name)
     if app_name == "" or new_app_name == "":
         print("Please provide an application short cut name.")
-    elif status == False:
+        return
+    status1 = check_if_shotcut_name_exists(app_name)
+    status2 = check_if_shotcut_name_exists(new_app_name)
+    if status1 == False or status2 == True:
         print("Please provide an application short cut name that already exists.")
     else:
         filepath = filedialog.askopenfilename(initialdir="C:/", title="Select an executable", filetypes=[("executables", "*.exe")])
@@ -82,8 +81,8 @@ def remove_file(filepath, app_name , new_app_name):
         read_file()
         del dict_app[app_name]
 
-        file_names = open(file_nms, 'r+')
-        file_paths = open(file_pths, 'r+')
+        file_names = open(file_nms, 'w')
+        file_paths = open(file_pths, 'w')
         for key, value in dict_app.items():
             file_names.write(key + "\n")
             file_paths.write(value + "\n")

@@ -2,13 +2,13 @@
 
 from email.mime import application
 from idlist import myGmail, password
-from Emails import emailList
 import JarvisAI
 import re
 import pprint
 import random
 from regex import D
 import application
+import Emails
 
 # backend_tts_api='pyttsx3' for different voices options
 # backend_tts_api='gtts' for female voice by google text to speech library
@@ -52,7 +52,21 @@ def get_application(application_name):
     else:
         obj.launch_any_app(path_of_app=path)
         return "Opening " + application_name
-    
+
+def send_email(content, subject, to):
+    Emails.read_file()
+    if to == "":
+        return "Please provide a number that corresponds with an email."
+    elif content == "":
+        return "Please provide content to your email."
+    elif subject == "":
+        return "Please provide a subject to your email."
+    elif Emails.emailList.get(to, -1) != -1:
+        email_name = Emails.emailList[to]
+        obj.send_mail(email_name, subject, content, myGmail, password)
+        return "Email has been sent successfully."
+    else:
+        return "Invalid number..."
 
 def run_ai():
     while mic_on:
@@ -64,9 +78,9 @@ def run_ai():
             print(weather_res)
             t2s(weather_res)
 
-        #NEEDS FIXING
         if re.search('send email', res):
             try:
+                Emails.read_file()
                 response = "What should I say?"
                 print(response)
                 t2s(response)
@@ -83,27 +97,24 @@ def run_ai():
                 print(response)
                 t2s(response)
                 i = 1
-                for x in emailList:
+                for x in Emails.emailList:
                     print(i, end = ': ')
-                    print(emailList[x])
+                    print(Emails.emailList[x])
                     i+=1
 
                 res = obj.mic_input()
-                try:
-                    # if res != int:
-                    #     pass
-                    to = emailList[res]
-                except Exception as e:
-                    print(e)
+                if Emails.emailList.get(to, -1) != -1:
+                    to = Emails.emailList[res]
+                    obj.send_mail(to, subject, content, myGmail, password)
+
+                    response = "Email has been sent successfully."
+                    print(response)
+                    t2s(response)
+                else:
                     response = "Invalid number..."
                     print(response)
                     t2s(response)
 
-                obj.send_mail(to, subject, content, myGmail, password)
-
-                response = "Email has been sent successfully."
-                print(response)
-                t2s(response)
             except Exception as e:
                 print(e)
                 response = "Unable to send the email"
@@ -138,7 +149,6 @@ def run_ai():
             open_result = obj.website_opener(domain)
             print(open_result)
 
-        #NEEDS FIXING
         if re.search('launch', res):
             app = res.split(' ', 1)[1]
             application.read_file()

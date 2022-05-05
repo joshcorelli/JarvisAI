@@ -1,5 +1,4 @@
 chrome
-epic games
-notepad
-snipping tool
 steam
+overwatch
+epic games
