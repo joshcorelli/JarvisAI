@@ -25,6 +25,9 @@ rotX = 0
 rotY = 0
 rotZ = 3
 
+rot_true = False #Runs when a function runs
+func_ran = None
+
 def extract_data(file):
      verticies = {}
      faces = []
@@ -53,15 +56,16 @@ def Cube():
             GL.glVertex3fv(Vertex[v])
     GL.glEnd()
 
-# def RainCloud():
-#     verts, faces = extract_data(open_file("knudsee\CloudOBJ.obj", "r"))
-#     GL.glBegin(GL.GL_TRIANGLES)
-#     for f in faces:
-#         for i in range(len(f)):
-#             GL.glVertex3fv(verts.get(f[i]))
-#     GL.glEnd()
+def obj_file():
+    verts, faces = extract_data(open_file("knudsee\IsoSphere.obj", "r"))
+    GL.glBegin(GL.GL_TRIANGLES)
+    for f in faces:
+        for i in range(len(f)):
+            GL.glVertex3fv(verts.get(f[i]))
+    GL.glEnd()
 
 class frame(OpenGLFrame):
+    rot = 0
     def initgl(self): #When frame is created start
         GL.glViewport(0, 0, self.width, self.height)
         GL.glMatrixMode(GL.GL_PROJECTION)
@@ -72,13 +76,23 @@ class frame(OpenGLFrame):
         self.nframes = 0
 
     def redraw(self): #Draws frame
+        self.rot += 1
         self.start = time.time()
         GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
         GL.glMatrixMode(GL.GL_MODELVIEW)
         GL.glLoadIdentity()
+
+        if rot_true == True:
+            GL.glTranslatef(0, 0, 0)
+            GL.glRotatef(self.rot, 0, 0, 1)
+
         GLU.gluLookAt(rotX, rotY, rotZ, 0, 0, 0, 0, 1, 0)
-        self.nframes += 1
-        Cube()
-        # RainCloud()
+
         tm = time.time() - self.start
+        self.nframes += 1
+
+        if func_ran == "Weather":
+            obj_file()
+        else:
+            Cube()
 

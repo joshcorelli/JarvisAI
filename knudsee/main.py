@@ -5,6 +5,8 @@ import threading
 import recent_cmds
 import jarvisFunctions
 import obj_reader
+import time
+import threading
 
 # def key_inp(event):
 #     print(event.keysym)
@@ -36,6 +38,13 @@ m_canvas.place(x=300, y=0)
 m_canvas.animate = 1
 m_canvas.after(100, m_canvas.printContext)
 
+def rot_obj():
+    obj_reader.rot_true = True
+    print(obj_reader.rot_true)
+    time.sleep(2)
+    obj_reader.rot_true = False
+    print(obj_reader.rot_true)
+
 # Function Declarations
 def weather_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -51,8 +60,13 @@ def weather_input():
         cmd_canvas.create_window(150, 100, window=entry_lbl)
         recent_cmds.read_file("Weather in |" + text_inp.get() + "|\n")
 
+        rot_thread = threading.Thread(target=rot_obj)
+        rot_thread.start()
+
     get_wthr = Button(cmd_canvas, text="Get Weather", command=lambda: get_city(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_wthr)
+
+    obj_reader.func_ran = "Weather"
 
 def web_input():
     print(cmd_canvas.winfo_children())
@@ -70,8 +84,13 @@ def web_input():
         cmd_canvas.create_window(150, 90, window=entry_lbl)
         recent_cmds.read_file("Website |" + text_inp.get() + "|\n")
 
+        rot_thread = threading.Thread(target=rot_obj)
+        rot_thread.start()
+
     get_web = Button(cmd_canvas, text="Get Website", command=lambda: get_website(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_web)
+
+    obj_reader.func_ran = "Website"
 
 def topic_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -87,9 +106,14 @@ def topic_input():
         entry_lbl = Label(cmd_canvas, text=topic_str, bg="#caf0f8", wraplength=250)
         cmd_canvas.create_window(150, 200, window=entry_lbl)
         recent_cmds.read_file("Topic |" + text_inp.get() + "|\n") #DO NOT CHANGE
+
+        rot_thread = threading.Thread(target=rot_obj)
+        rot_thread.start()
     
     get_top = Button(cmd_canvas, text="Get Topic", command=lambda: get_topic(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_top)
+
+    obj_reader.func_ran = "Topic"
 
 def news_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -101,6 +125,10 @@ def news_input():
 
     recent_cmds.read_file("News\n") #DO NOT CHANGE
 
+    obj_reader.func_ran = "News"
+    rot_thread = threading.Thread(target=rot_obj)
+    rot_thread.start()
+
 def d_and_t():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
         i.destroy()
@@ -110,6 +138,10 @@ def d_and_t():
     cmd_canvas.create_window(150, 150, window=entry_lbl)
 
     recent_cmds.read_file("Date and Time\n") #DO NOT CHANGE
+
+    obj_reader.func_ran = "Date and Time"
+    rot_thread = threading.Thread(target=rot_obj)
+    rot_thread.start()
 
 def mic_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
