@@ -6,20 +6,20 @@ import recent_cmds
 import jarvisFunctions
 import obj_reader
 
-def key_inp(event):
-    print(event.keysym)
-    if event.keysym == 'q':
-        obj_reader.rotX += 1
-    elif event.keysym == 'a':
-        obj_reader.rotX -= 1
-    elif event.keysym == 'w':
-        obj_reader.rotY += 1
-    elif event.keysym == 's':
-        obj_reader.rotY -= 1
-    elif event.keysym == 'e':
-        obj_reader.rotZ += 1
-    elif event.keysym == 'd':
-        obj_reader.rotZ -= 1
+# def key_inp(event):
+#     print(event.keysym)
+#     if event.keysym == 'q':
+#         obj_reader.rotX += 1
+#     elif event.keysym == 'a':
+#         obj_reader.rotX -= 1
+#     elif event.keysym == 'w':
+#         obj_reader.rotY += 1
+#     elif event.keysym == 's':
+#         obj_reader.rotY -= 1
+#     elif event.keysym == 'e':
+#         obj_reader.rotZ += 1
+#     elif event.keysym == 'd':
+#         obj_reader.rotZ -= 1
 
 # Main
 window = Tk()
@@ -29,6 +29,8 @@ window.config(menu=m_bar) #Includes the menu bar
 
 cmd_canvas = Canvas(window, bg="#caf0f8", width=300, height=400) #For command inputs
 cmd_canvas.grid(sticky=W)
+recent_cmds.cmd_cnvs = cmd_canvas
+
 m_canvas = obj_reader.frame(window, width=300, height=400) #For 3D Models
 m_canvas.place(x=300, y=0)
 m_canvas.animate = 1
@@ -47,10 +49,10 @@ def weather_input():
         weather_str = jarvisFunctions.tell_weather(text_inp.get())
         entry_lbl = Label(cmd_canvas, text=weather_str, bg="#caf0f8", wraplength=250)
         cmd_canvas.create_window(150, 100, window=entry_lbl)
+        recent_cmds.read_file("Weather in |" + text_inp.get() + "|\n")
 
     get_wthr = Button(cmd_canvas, text="Get Weather", command=lambda: get_city(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_wthr)
-    recent_cmds.read_file("Weather\n")
 
 def web_input():
     print(cmd_canvas.winfo_children())
@@ -66,10 +68,10 @@ def web_input():
         jarvisFunctions.open_website(text_inp.get())
         entry_lbl = Label(cmd_canvas, text="Website: "+str, bg="#caf0f8")
         cmd_canvas.create_window(150, 90, window=entry_lbl)
+        recent_cmds.read_file("Website |" + text_inp.get() + "|\n")
 
     get_web = Button(cmd_canvas, text="Get Website", command=lambda: get_website(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_web)
-    recent_cmds.read_file("Website\n")
 
 def topic_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -84,10 +86,10 @@ def topic_input():
         topic_str = jarvisFunctions.get_topic(text_inp.get())
         entry_lbl = Label(cmd_canvas, text=topic_str, bg="#caf0f8", wraplength=250)
         cmd_canvas.create_window(150, 200, window=entry_lbl)
+        recent_cmds.read_file("Topic |" + text_inp.get() + "|\n") #DO NOT CHANGE
     
     get_top = Button(cmd_canvas, text="Get Topic", command=lambda: get_topic(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_top)
-    recent_cmds.read_file("Topic\n")
 
 def news_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -97,7 +99,7 @@ def news_input():
     entry_lbl = Label(cmd_canvas, text="Top Story: "+news_str, bg="#caf0f8", wraplength=250)
     cmd_canvas.create_window(150, 150, window=entry_lbl)
 
-    recent_cmds.read_file("Topic\n")
+    recent_cmds.read_file("News\n") #DO NOT CHANGE
 
 def d_and_t():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -107,7 +109,7 @@ def d_and_t():
     entry_lbl = Label(cmd_canvas, text=dt_str, bg="#caf0f8", wraplength=250)
     cmd_canvas.create_window(150, 150, window=entry_lbl)
 
-    recent_cmds.read_file("Topic\n")
+    recent_cmds.read_file("Date and Time\n") #DO NOT CHANGE
 
 def mic_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -138,12 +140,13 @@ cmds.add_command(label="Exit", command=quit)
 
 r_cmds = Menu(m_bar, tearoff=0)
 m_bar.add_cascade(label="Recent Commands",menu=r_cmds) #Adds list of commands, name Recent Commands
+recent_cmds.r_cmd = r_cmds
 recent_cmds.add_cascade(r_cmds)
 
 window.title('Jarvis AI Capstone')
 window.geometry("600x400")
 #window.state('zoomed') #Choose whether to maximize window or not.
 
-window.bind("<KeyRelease>", key_inp)
+# window.bind("<KeyRelease>", key_inp)
 window.mainloop()
 m_canvas.mainloop()

@@ -22,8 +22,8 @@ Edge = (    (0,1),    (0,3),    (0,4),    (2,1),    (2,3),    (2,7),
     (6,3),    (6,4),    (6,7),    (5,1),    (5,4),    (5,7)    )
 
 rotX = 0
-rotY = -3
-rotZ = 0
+rotY = 0
+rotZ = 3
 
 def extract_data(file):
      verticies = {}
@@ -53,31 +53,32 @@ def Cube():
             GL.glVertex3fv(Vertex[v])
     GL.glEnd()
 
-def RainCloud():
-    verts, faces = extract_data(open_file("knudsee\CloudOBJ.obj", "r"))
-    GL.glBegin(GL.GL_TRIANGLES)
-    for f in faces:
-        for i in range(len(f)):
-            GL.glVertex3fv(verts.get(f[i]))
-    GL.glEnd()
+# def RainCloud():
+#     verts, faces = extract_data(open_file("knudsee\CloudOBJ.obj", "r"))
+#     GL.glBegin(GL.GL_TRIANGLES)
+#     for f in faces:
+#         for i in range(len(f)):
+#             GL.glVertex3fv(verts.get(f[i]))
+#     GL.glEnd()
 
 class frame(OpenGLFrame):
     def initgl(self): #When frame is created start
         GL.glViewport(0, 0, self.width, self.height)
         GL.glMatrixMode(GL.GL_PROJECTION)
         GL.glLoadIdentity()
-        GLU.gluPerspective(90, self.width/self.height, 0.1, 10.0)
+        GLU.gluPerspective(90, self.width/self.height, 0.1, 100.0)
         GL.glClearColor(0.8, 0.9, 0.8, 0.0)
         self.start = time.time()
         self.nframes = 0
 
     def redraw(self): #Draws frame
+        self.start = time.time()
         GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
         GL.glMatrixMode(GL.GL_MODELVIEW)
         GL.glLoadIdentity()
-        GLU.gluLookAt(rotX, rotY, rotZ, 0, 0, 0, 0, 0, 1)
-        tm = time.time() - self.start
+        GLU.gluLookAt(rotX, rotY, rotZ, 0, 0, 0, 0, 1, 0)
         self.nframes += 1
         Cube()
-        #RainCloud()
+        # RainCloud()
+        tm = time.time() - self.start
 
