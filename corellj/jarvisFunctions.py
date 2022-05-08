@@ -1,12 +1,14 @@
 #token = '94bdb0ac9d2f973461c46a3dd2eb0e'
 
+from email.mime import application
 from idlist import myGmail, password
-from Emails import emailList
 import JarvisAI
 import re
 import pprint
 import random
 from regex import D
+import application
+import Emails
 
 # backend_tts_api='pyttsx3' for different voices options
 # backend_tts_api='gtts' for female voice by google text to speech library
@@ -33,14 +35,38 @@ def get_topic(topic_name):
 def get_news():
     news_obj = obj.news()
     pprint.pprint(news_obj)
-    return news_obj[0]
+    return news_obj
 
 def get_dt():
     date_obj = obj.tell_me_date()
     time_obj = obj.tell_me_time()
     dt_str = "Date: " + date_obj + "\nTime: " + time_obj
     return dt_str
-    
+
+def get_application(application_name):
+    application.read_file()
+    path = application.dict_app.get(application_name)
+    if path is None:
+        app_err = "Application path not found"
+        return app_err
+    else:
+        obj.launch_any_app(path_of_app=path)
+        return "Opening " + application_name
+
+def send_email(content, subject, to):
+    Emails.read_file()
+    if to == "":
+        return "Please provide a number that corresponds with an email."
+    elif content == "":
+        return "Please provide content to your email."
+    elif subject == "":
+        return "Please provide a subject to your email."
+    elif Emails.emailList.get(to, -1) != -1:
+        email_name = Emails.emailList[to]
+        obj.send_mail(email_name, subject, content, myGmail, password)
+        return "Email has been sent successfully."
+    else:
+        return "Invalid number..."
 
 def run_ai():
     while mic_on:
@@ -52,9 +78,9 @@ def run_ai():
             print(weather_res)
             t2s(weather_res)
 
-        #NEEDS FIXING
         if re.search('send email', res):
             try:
+                Emails.read_file()
                 response = "What should I say?"
                 print(response)
                 t2s(response)
@@ -71,27 +97,24 @@ def run_ai():
                 print(response)
                 t2s(response)
                 i = 1
-                for x in emailList:
+                for x in Emails.emailList:
                     print(i, end = ': ')
-                    print(emailList[x])
+                    print(Emails.emailList[x])
                     i+=1
 
                 res = obj.mic_input()
-                try:
-                    # if res != int:
-                    #     pass
-                    to = emailList[res]
-                except Exception as e:
-                    print(e)
+                if Emails.emailList.get(to, -1) != -1:
+                    to = Emails.emailList[res]
+                    obj.send_mail(to, subject, content, myGmail, password)
+
+                    response = "Email has been sent successfully."
+                    print(response)
+                    t2s(response)
+                else:
                     response = "Invalid number..."
                     print(response)
                     t2s(response)
 
-                obj.send_mail(to, subject, content, myGmail, password)
-
-                response = "Email has been sent successfully."
-                print(response)
-                t2s(response)
             except Exception as e:
                 print(e)
                 response = "Unable to send the email"
@@ -126,17 +149,10 @@ def run_ai():
             open_result = obj.website_opener(domain)
             print(open_result)
 
-        #NEEDS FIXING
         if re.search('launch', res):
-            dict_app = {
-                'chrome': 'C:\Program Files\Google\Chrome\Application\chrome.exe',
-                'epic games': 'C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win32\EpicGamesLauncher.exe',
-                'notepad': 'notepad.exe',
-                # 'snipping tool': '%windir%\system32\SnippingTool.exe'
-                # 'discord': 'C:\Users\joshu\AppData\Local\Discord\Update.exe --processStart Discord.exe'
-            }
             app = res.split(' ', 1)[1]
-            path = dict_app.get(app)
+            application.read_file()
+            path = application.dict_app.get(app)
             if path is None:
                 t2s('Application path not found')
                 print('Application path not found')
