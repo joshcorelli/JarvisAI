@@ -72,29 +72,40 @@ def check_if_shotcut_name_exists(email_name):
                 already_exists = True
     return already_exists
 
-# def editFile(app_name, new_app_name):
-#     if app_name == "" or new_app_name == "":
-#         print("Please provide an application short cut num.")
-#         return
-#     status1 = check_if_shotcut_name_exists(app_name)
-#     status2 = check_if_shotcut_name_exists(new_app_name)
-#     if status1 == False or status2 == True:
-#         print("Please provide an application short cut num that already exists.")
-#     else:
-#         filepath = filedialog.askopenfilename(initialdir="C:/", title="Select an executable", filetypes=[("executables", "*.exe")])
-#         remove_file(filepath, app_name, new_app_name)
+def editEmail(email_number, new_email_name):
+    read_file()
+    if email_number == "" or new_email_name == "":
+            print("Please provide a valid number and a new email name.")
+            return
+    elif emailList.get(email_number, -1) != -1:
+        status2 = check_if_shotcut_name_exists(new_email_name)
+        if status2 == True:
+            print("Please provide an email name that doesn't already exist.")
+        else:
+            if(re.fullmatch(regex, new_email_name)):
+                remove_file(email_number, new_email_name)
+            else:
+                print("Invalid new email.")
+    else:
+        print(emailList.get(email_number, -1))
+        print("Please provide a valid number associated with the email you want to edit.")
 
-# def remove_file(filepath, app_name , new_app_name):
-#     if filepath != "":
-#         read_file()
-#         del emailList[app_name]
+def remove_file(email_number, new_email_name):
+    read_file()
+    del emailList[email_number]
 
-#         file_numbers = open(file_nums, 'w')
-#         file_emails_list = open(file_emails, 'w')
-#         for key, value in emailList.items():
-#             file_numbers.write(key + "\n")
-#             file_emails_list.write(value + "\n")
-#         file_numbers.write(new_app_name)
-#         file_emails_list.write(filepath)
-#         file_numbers.close()
-#         file_emails_list.close()
+    file_numbers = open(file_nums, 'w')
+    file_emails_list = open(file_emails, 'w')
+
+    i = 1
+    for key, value in emailList.items():
+        i_str = str(i)
+        file_numbers.write(i_str + "\n")
+        file_emails_list.write(value + "\n")
+        i_int = int(i_str)
+        i = i_int + 1
+    i_str = str(i)
+    file_numbers.write(i_str)
+    file_emails_list.write(new_email_name)
+    file_numbers.close()
+    file_emails_list.close()

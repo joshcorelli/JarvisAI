@@ -71,7 +71,7 @@ def editFile(app_name, new_app_name):
     status1 = check_if_shotcut_name_exists(app_name)
     status2 = check_if_shotcut_name_exists(new_app_name)
     if status1 == False or status2 == True:
-        print("Please provide an application short cut name that already exists.")
+        print("Please provide an application short cut name that already exists and one that doesn't exist.")
     else:
         filepath = filedialog.askopenfilename(initialdir="C:/", title="Select an executable", filetypes=[("executables", "*.exe")])
         remove_file(filepath, app_name, new_app_name)

@@ -6,7 +6,7 @@ import recent_cmds
 import jarvisFunctions
 import obj_reader
 from application import openFile, editFile, file_nms
-from Emails import file_emails, openEmail
+from Emails import openEmail, editEmail, file_emails
 
 # Main
 window = Tk()
@@ -203,23 +203,23 @@ def email():
         cmd_canvas.create_window(150, 60, window=entry_lbl1)
         text_inp1.delete(0, END)
 
-        # text_inp2 = Entry(cmd_canvas)
-        # cmd_canvas.create_window(150, 160, window=text_inp2)
+        text_inp2 = Entry(cmd_canvas)
+        cmd_canvas.create_window(150, 160, window=text_inp2)
 
-        # text_inp3 = Entry(cmd_canvas)
-        # cmd_canvas.create_window(150, 220, window=text_inp3)
+        text_inp3 = Entry(cmd_canvas)
+        cmd_canvas.create_window(150, 220, window=text_inp3)
 
-        # editApp = Button(cmd_canvas, text="Edit email", command=lambda: editFile(text_inp2.get().lower(), text_inp3.get().lower()))
-        # cmd_canvas.create_window(150, 290, window=editApp)
-        # edit_err1 = "Please provide the application short cut name that you want to edit."
-        # entry_lbl2 = Label(cmd_canvas, text=edit_err1, bg="#caf0f8", wraplength=250)
-        # cmd_canvas.create_window(150, 190, window=entry_lbl2)
-        # text_inp2.delete(0, END)
-        # text_inp3.delete(0, END)
+        editApp = Button(cmd_canvas, text="Edit email", command=lambda: editEmail(text_inp2.get().lower(), text_inp3.get().lower()))
+        cmd_canvas.create_window(150, 290, window=editApp)
+        edit_err1 = "Please provide the number associated with the email you want to edit."
+        entry_lbl2 = Label(cmd_canvas, text=edit_err1, bg="#caf0f8", wraplength=250)
+        cmd_canvas.create_window(150, 190, window=entry_lbl2)
+        text_inp2.delete(0, END)
+        text_inp3.delete(0, END)
 
-        # edit_err2 = "Please provide the new application short cut name."
-        # entry_lbl3 = Label(cmd_canvas, text=edit_err2, bg="#caf0f8", wraplength=250)
-        # cmd_canvas.create_window(150, 280, window=entry_lbl3)
+        edit_err2 = "Please provide a new valid email name that doesn't already exist."
+        entry_lbl3 = Label(cmd_canvas, text=edit_err2, bg="#caf0f8", wraplength=250)
+        cmd_canvas.create_window(150, 250, window=entry_lbl3)
 
     send_eml = Button(cmd_canvas, text="Send email", command=lambda: get_email(text_inp1.get(), text_inp2.get(), text_inp3.get().lower()))
     cmd_canvas.create_window(150, 170, window=send_eml)
