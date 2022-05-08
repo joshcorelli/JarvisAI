@@ -35,7 +35,7 @@ def get_topic(topic_name):
 def get_news():
     news_obj = obj.news()
     pprint.pprint(news_obj)
-    return news_obj[0]
+    return news_obj
 
 def get_dt():
     date_obj = obj.tell_me_date()

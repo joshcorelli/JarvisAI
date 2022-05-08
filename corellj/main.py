@@ -81,7 +81,7 @@ def news_input():
         i.destroy()
 
     news_str = jarvisFunctions.get_news()
-    entry_lbl = Label(cmd_canvas, text="Top Story: "+news_str, bg="#caf0f8", wraplength=250)
+    entry_lbl = Label(cmd_canvas, text=f"Top Storys: \n{news_str[0]}\n\n{news_str[1]}\n\n{news_str[2]}", bg="#caf0f8", wraplength=250)
     cmd_canvas.create_window(150, 150, window=entry_lbl)
 
     recent_cmds.read_file("Topic\n")
