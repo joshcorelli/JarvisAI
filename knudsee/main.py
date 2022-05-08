@@ -154,6 +154,7 @@ def mic_input():
     mic_process_var.start()
     #mic_process_var.join()
 
+    obj_reader.func_ran = "Microphone"
     recent_cmds.read_file("Microphone\n")
 
 prog_start_lbl = Label(cmd_canvas, text="Microphone On", bg="#caf0f8")

@@ -1,3 +1,3 @@
-Date and Time
 News
-Weather in |y|
+Date and Time
+Microphone
