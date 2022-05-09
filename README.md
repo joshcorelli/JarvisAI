@@ -1,5 +1,8 @@
 # JarvisAI
-For our capstone project we are building a Jarvis AI library that Python has to offer. This library can perform numerous tasks, such as opening websites, games, and other applications. It allows you to speak into the microphone and listens to what you ask for. What we ultimately want to accomplish is to create a GUI showcasing the abilities of this library.
+The main objective of this project was to create a personal assistant for users on the Windows operating system. This program works by utilizing the different functions of the library Jarvis AI, and pushing it into a graphical user interface (GUI). What makes this GUI special is that it can be used either by text or speech input. While having such a versatile program, we strived to assemble it in a way that was visually appealing while incorporating 3D rendering on the side of the command canvas.
+
+This project was important, as it showcased the knowledge that we gained over the couple years at SUNY Polytechnic Institute, while also providing a way to use the personal assistant to make every day tasks easy. The program allows for many functions; telling the date, time, weather, topics, news, as well as opening websites and applications, and lastly emailing. We wanted to ensure that the program is very versatile.
+
 
 # Setup
 Download and install Anaconda:
