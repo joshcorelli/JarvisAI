@@ -5,6 +5,8 @@ import threading
 import recent_cmds
 import jarvisFunctions
 import obj_reader
+import time
+import threading
 from application import openFile, editFile, file_nms
 from Emails import openEmail, editEmail, file_emails
 
@@ -16,10 +18,17 @@ window.config(menu=m_bar) #Includes the menu bar
 
 cmd_canvas = Canvas(window, bg="#caf0f8", width=300, height=400) #For command inputs
 cmd_canvas.grid(sticky=W)
+recent_cmds.cmd_cnvs = cmd_canvas
+
 m_canvas = obj_reader.frame(window, width=300, height=400) #For 3D Models
 m_canvas.place(x=300, y=0)
 m_canvas.animate = 1
 m_canvas.after(100, m_canvas.printContext)
+
+def rot_obj():
+    obj_reader.rot_true = True
+    time.sleep(2)
+    obj_reader.rot_true = False
 
 # Function Declarations
 def weather_input():
@@ -34,10 +43,15 @@ def weather_input():
         weather_str = jarvisFunctions.tell_weather(text_inp.get())
         entry_lbl = Label(cmd_canvas, text=weather_str, bg="#caf0f8", wraplength=250)
         cmd_canvas.create_window(150, 100, window=entry_lbl)
+        recent_cmds.read_file("Weather in |" + text_inp.get() + "|\n")
+
+        rot_thread = threading.Thread(target=rot_obj)
+        rot_thread.start()
 
     get_wthr = Button(cmd_canvas, text="Get Weather", command=lambda: get_city(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_wthr)
-    recent_cmds.read_file("Weather\n")
+    
+    obj_reader.func_ran = "Weather"
 
 def web_input():
     print(cmd_canvas.winfo_children())
@@ -53,10 +67,15 @@ def web_input():
         jarvisFunctions.open_website(text_inp.get())
         entry_lbl = Label(cmd_canvas, text="Website: "+str, bg="#caf0f8")
         cmd_canvas.create_window(150, 90, window=entry_lbl)
+        recent_cmds.read_file("Website |" + text_inp.get() + "|\n")
+
+        rot_thread = threading.Thread(target=rot_obj)
+        rot_thread.start()
 
     get_web = Button(cmd_canvas, text="Get Website", command=lambda: get_website(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_web)
-    recent_cmds.read_file("Website\n")
+    
+    obj_reader.func_ran = "Website"
 
 def topic_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -71,10 +90,15 @@ def topic_input():
         topic_str = jarvisFunctions.get_topic(text_inp.get())
         entry_lbl = Label(cmd_canvas, text=topic_str, bg="#caf0f8", wraplength=250)
         cmd_canvas.create_window(150, 200, window=entry_lbl)
+        recent_cmds.read_file("Topic |" + text_inp.get() + "|\n") #DO NOT CHANGE
+        
+        rot_thread = threading.Thread(target=rot_obj)
+        rot_thread.start()
     
     get_top = Button(cmd_canvas, text="Get Topic", command=lambda: get_topic(text_inp.get()))
     cmd_canvas.create_window(150, 60, window=get_top)
-    recent_cmds.read_file("Topic\n")
+
+    obj_reader.func_ran = "Topic"
 
 def news_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -84,7 +108,11 @@ def news_input():
     entry_lbl = Label(cmd_canvas, text=f"Top Storys: \n{news_str[0]}\n\n{news_str[1]}\n\n{news_str[2]}", bg="#caf0f8", wraplength=250)
     cmd_canvas.create_window(150, 150, window=entry_lbl)
 
-    recent_cmds.read_file("Topic\n")
+    recent_cmds.read_file("News\n") #DO NOT CHANGE
+
+    obj_reader.func_ran = "News"
+    rot_thread = threading.Thread(target=rot_obj)
+    rot_thread.start()
 
 def d_and_t():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -94,7 +122,11 @@ def d_and_t():
     entry_lbl = Label(cmd_canvas, text=dt_str, bg="#caf0f8", wraplength=250)
     cmd_canvas.create_window(150, 150, window=entry_lbl)
 
-    recent_cmds.read_file("Topic\n")
+    recent_cmds.read_file("Date and Time\n") #DO NOT CHANGE
+
+    obj_reader.func_ran = "Date and Time"
+    rot_thread = threading.Thread(target=rot_obj)
+    rot_thread.start()
 
 def application():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
@@ -104,7 +136,7 @@ def application():
     cmd_canvas.create_window(150, 30, window=text_inp) 
 
     def get_application(str):
-        app_status = ""
+        # For some reason app_status displays the long error message text with the opening chrome message...
         app_status = jarvisFunctions.get_application(text_inp.get().lower())
         entry_lbl = Label(cmd_canvas, text=app_status, bg="#caf0f8", wraplength=250)
         cmd_canvas.create_window(150, 150, window=entry_lbl)
@@ -181,7 +213,6 @@ def email():
     cmd_canvas.create_window(150, 140, window=entry_lbl3)
 
     def get_email(content, subject, to):
-        app_status = ""
         app_status = jarvisFunctions.send_email(text_inp1.get(), text_inp2.get(), text_inp3.get().lower())
         entry_lbl = Label(cmd_canvas, text=app_status, bg="#caf0f8", wraplength=250)
         cmd_canvas.create_window(150, 240, window=entry_lbl)
@@ -251,6 +282,7 @@ def mic_input():
     mic_process_var.start()
     #mic_process_var.join()
 
+    obj_reader.func_ran = "Microphone"
     recent_cmds.read_file("Microphone\n")
 
 prog_start_lbl = Label(cmd_canvas, text="Microphone On", bg="#caf0f8")
@@ -271,11 +303,13 @@ cmds.add_command(label="Exit", command=quit)
 
 r_cmds = Menu(m_bar, tearoff=0)
 m_bar.add_cascade(label="Recent Commands",menu=r_cmds) #Adds list of commands, name Recent Commands
+recent_cmds.r_cmd = r_cmds
 recent_cmds.add_cascade(r_cmds)
 
 window.title('Jarvis AI Capstone')
 window.geometry("600x400")
 #window.state('zoomed') #Choose whether to maximize window or not.
 
+# window.bind("<KeyRelease>", key_inp)
 window.mainloop()
 m_canvas.mainloop()

@@ -3,8 +3,8 @@ from tkinter import filedialog
 
 dict_app = {'chrome': 'C:\Program Files\Google\Chrome\Application\chrome.exe'}
 
-file_nms = "corellj/application_names.txt"
-file_pths = "corellj/application_paths.txt"
+file_nms = "master/application_names.txt"
+file_pths = "master/application_paths.txt"
 
 def read_file():
     file_names = open(file_nms, 'r')

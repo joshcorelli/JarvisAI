@@ -103,17 +103,17 @@ class frame(OpenGLFrame):
         self.nframes += 1
 
         if func_ran == "Weather":
-            obj_file("knudsee\\3D_Models\Cloud.obj")
+            obj_file("master\\3D_Models\Cloud.obj")
         elif func_ran == "Topic":
-            obj_file("knudsee\\3D_Models\IsoSphere.obj")
+            obj_file("master\\3D_Models\IsoSphere.obj")
         elif func_ran == "Microphone":
-            obj_file("knudsee\\3D_Models\Microphone.obj")
+            obj_file("master\\3D_Models\Microphone.obj")
         elif func_ran == "News":
-            obj_file("knudsee\\3D_Models\\NewsPaper.obj")
+            obj_file("master\\3D_Models\\NewsPaper.obj")
         elif func_ran == "Date and Time":
-            obj_file("knudsee\\3D_Models\Clock.obj")
+            obj_file("master\\3D_Models\Clock.obj")
         elif func_ran == "Website":
-            obj_file("knudsee\\3D_Models\WiFi.obj")
+            obj_file("master\\3D_Models\WiFi.obj")
         else:
             Cube()
 

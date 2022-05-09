@@ -5,8 +5,8 @@ emailList = {"1": "joshuacorelli@gmail.com"}
 
 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
-file_nums = "corellj/email_numbers.txt"
-file_emails = "corellj/email_names.txt"
+file_nums = "master/email_numbers.txt"
+file_emails = "master/email_names.txt"
 
 def read_file():
     file_numbers = open(file_nums, 'r')

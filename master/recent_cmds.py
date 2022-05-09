@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from matplotlib.pyplot import title
 from numpy import append
 from tkinter import *
@@ -37,7 +38,7 @@ def run_ai_cmd(str):
 
 
 def read_file(str):
-    rd_file = open('knudsee/recent_commands.txt', 'r+') #Read and write in the file.
+    rd_file = open('master/recent_commands.txt', 'r+') #Read and write in the file.
     file_lines = rd_file.readlines()
     file_length = len(file_lines)
 
@@ -58,12 +59,13 @@ def read_file(str):
     add_cascade(r_cmd)
 
 def add_cascade(cscd): #cscd meaning cascade.
-    txt_file = open('knudsee/recent_commands.txt', 'r')
+    txt_file = open('master/recent_commands.txt', 'r')
     file_lines = txt_file.readlines()
 
     try:
-        for i in range(0,cscd.index("end") + 1):
-            cscd.delete("end")
+        if cscd.index("end") != None:
+            for i in range(0,cscd.index("end") + 1):
+                cscd.delete("end")
     except:
         None
 
