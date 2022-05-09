@@ -256,7 +256,6 @@ def email():
     cmd_canvas.create_window(150, 170, window=send_eml)
     add_email = Button(cmd_canvas, text="Add/Edit email", command=lambda: add_edit_email())
     cmd_canvas.create_window(150, 200, window=add_email)
-    recent_cmds.read_file("Email\n")
 
     scrollbar = Scrollbar(cmd_canvas)
     mylist = Listbox(cmd_canvas, yscrollcommand = scrollbar.set)
