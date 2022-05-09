@@ -20,7 +20,8 @@ def run_ai_cmd(str):
         entry_lbl.config(text=jarvisFunctions.tell_weather(str[s+1:e])) #Grabs the 3rd string before the line feed
         entry_lbl.place(relx=0.5, rely=0.5, anchor=CENTER)
     elif str == "News\n":
-        entry_lbl.config(text=jarvisFunctions.get_news())
+        news_str = jarvisFunctions.get_news()
+        entry_lbl.config(text=f"Top Storys: \n{news_str[0]}\n\n{news_str[1]}\n\n{news_str[2]}")
         entry_lbl.place(relx=0.5, rely=0.5, anchor=CENTER)
     elif str.split(' ')[0] == "Topic":
         s = str.index('|')

@@ -199,16 +199,16 @@ def email():
         i.destroy()
 
     text_inp1 = Entry(cmd_canvas)
-    cmd_canvas.create_window(150, 30, window=text_inp1)
+    cmd_canvas.create_window(150, 70, window=text_inp1)
     edit_err1 = "Please provide the content of the email."
     entry_lbl1 = Label(cmd_canvas, text=edit_err1, bg="#caf0f8", wraplength=250)
-    cmd_canvas.create_window(150, 50, window=entry_lbl1)
+    cmd_canvas.create_window(150, 90, window=entry_lbl1)
 
     text_inp2 = Entry(cmd_canvas)
-    cmd_canvas.create_window(150, 70, window=text_inp2)
+    cmd_canvas.create_window(150, 30, window=text_inp2)
     edit_err2 = "Please provide the subject of the email."
     entry_lbl2 = Label(cmd_canvas, text=edit_err2, bg="#caf0f8", wraplength=250)
-    cmd_canvas.create_window(150, 90, window=entry_lbl2)
+    cmd_canvas.create_window(150, 50, window=entry_lbl2)
 
     text_inp3 = Entry(cmd_canvas)
     cmd_canvas.create_window(150, 110, window=text_inp3)

@@ -9,6 +9,8 @@ import random
 from regex import D
 import application
 import Emails
+import smtplib
+import wikipedia
 
 # backend_tts_api='pyttsx3' for different voices options
 # backend_tts_api='gtts' for female voice by google text to speech library
@@ -29,8 +31,18 @@ def open_website(website_name):
     obj.website_opener(domain)
 
 def get_topic(topic_name):
-    wiki_res = obj.tell_me(topic_name)
+    wiki_res = tell_me_about(topic_name)
     return wiki_res
+
+def tell_me_about(topic):
+    try:
+        wikipedia.set_lang("en")
+        ny = wikipedia.summary(str(topic), chars=500, auto_suggest=True)
+        ny = ny + "..."
+        return ny
+    except Exception as e:
+        print("Exception: ", e)
+        return "Topic not found."
 
 def get_news():
     news_obj = obj.news()
@@ -63,10 +75,22 @@ def send_email(content, subject, to):
         return "Please provide a subject to your email."
     elif Emails.emailList.get(to, -1) != -1:
         email_name = Emails.emailList[to]
-        obj.send_mail(email_name, subject, content, myGmail, password)
+        send_mail(email_name, subject, content, myGmail, password)
         return "Email has been sent successfully."
     else:
         return "Invalid number..."
+
+def send_mail(to, subject, content, myGmail, password):
+    try:
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail.ehlo()
+        mail.starttls()
+        mail.login(myGmail, password)
+        message = f'Subject: {subject}\n\n{content}'
+        mail.sendmail(myGmail, to, message)
+        mail.close()
+    except Exception as e:
+        print(e)
 
 def run_ai():
     while mic_on:
@@ -81,17 +105,18 @@ def run_ai():
         if re.search('send email', res):
             try:
                 Emails.read_file()
-                response = "What should I say?"
-                print(response)
-                t2s(response)
-                res = obj.mic_input()
-                content = res
-
+                
                 response = "Subject to your email!"
                 print(response)
                 t2s(response)
                 res = obj.mic_input()
                 subject = res
+
+                response = "What should I say?"
+                print(response)
+                t2s(response)
+                res = obj.mic_input()
+                content = res
 
                 response = "Who would you like to send this email to. Please provide the number that corresponds to the name:"
                 print(response)
@@ -105,7 +130,7 @@ def run_ai():
                 res = obj.mic_input()
                 if Emails.emailList.get(to, -1) != -1:
                     to = Emails.emailList[res]
-                    obj.send_mail(to, subject, content, myGmail, password)
+                    send_mail(to, subject, content, myGmail, password)
 
                     response = "Email has been sent successfully."
                     print(response)
@@ -130,7 +155,7 @@ def run_ai():
 
         if re.search('tell me about', res):
             topic = res.split(' ')[-1]
-            wiki_res = obj.tell_me(topic)
+            wiki_res = tell_me_about(topic)
             print(wiki_res)
             t2s(wiki_res)
 
