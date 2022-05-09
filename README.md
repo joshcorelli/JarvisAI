@@ -9,12 +9,14 @@ Download and install Anaconda:
 https://www.anaconda.com/download/
 
 The python version we used was 3.9.7:
-```conda activate my_env 
+```
+conda activate my_env 
 conda install python=3.9.7
 ````
 
 Install Tensorflow CPU 3.6.0 (Also ensure you have the latest pip):
-```python -m pip install --upgrade pip
+```
+python -m pip install --upgrade pip
 conda create -n CV pip tensorflow==3.6.0
 ````
 
