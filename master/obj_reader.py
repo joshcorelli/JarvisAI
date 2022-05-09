@@ -62,6 +62,10 @@ def Cube():
 
 def obj_file(file_path):
     verts, faces = extract_data(open_file(file_path, "r"))
+    return verts, faces
+
+def draw_obj(modeldata):
+    verts, faces = modeldata
     if len(faces[0]) == 3:
         GL.glBegin(GL.GL_TRIANGLES)
         for f in faces:
@@ -86,40 +90,45 @@ class frame(OpenGLFrame):
         GL.glClearColor(0.8, 0.9, 0.8, 0.0)
         self.start = time.time()
         self.nframes = 0
+        self.modeldata = {
+        "Weather":
+            obj_file("master\\3D_Models\Cloud.obj"),
+        "Topic":
+            obj_file("master\\3D_Models\IsoSphere.obj"),
+        "Microphone":
+            obj_file("master\\3D_Models\Microphone.obj"),
+        "News":
+            obj_file("master\\3D_Models\\NewsPaper.obj"),
+        "Date and Time":
+            obj_file("master\\3D_Models\Clock.obj"),
+        "Website":
+            obj_file("master\\3D_Models\WiFi.obj"),
+        "Application":
+            obj_file("master\\3D_Models\\Rocket.obj"),
+        "Email":
+            obj_file("master\\3D_Models\\Email.obj"),
+        }
 
     def redraw(self): #Draws frame
-        if self.rot >= 6.28:
-            self.rot = 0
+        # if self.rot >= 6.28:
+        #     self.rot = 0
 
         self.rot += 0.01
         self.start = time.time()
         GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
         GL.glMatrixMode(GL.GL_MODELVIEW)
         GL.glLoadIdentity()
+        GLU.gluLookAt(rotX, rotY, rotZ, 0, 0, 0, 0, 1, 0)
 
         GL.glTranslated(0, math.sin(self.rot), 0)
+        GL.glRotated(30.0*self.rot, 0, 1, 0)
 
-        GLU.gluLookAt(rotX, rotY, rotZ, 0, 0, 0, 0, 1, 0)
 
         tm = time.time() - self.start
         self.nframes += 1
 
-        if func_ran == "Weather":
-            obj_file("master\\3D_Models\Cloud.obj")
-        elif func_ran == "Topic":
-            obj_file("master\\3D_Models\IsoSphere.obj")
-        elif func_ran == "Microphone":
-            obj_file("master\\3D_Models\Microphone.obj")
-        elif func_ran == "News":
-            obj_file("master\\3D_Models\\NewsPaper.obj")
-        elif func_ran == "Date and Time":
-            obj_file("master\\3D_Models\Clock.obj")
-        elif func_ran == "Website":
-            obj_file("master\\3D_Models\WiFi.obj")
-        elif func_ran == "Application":
-            obj_file("master\\3D_Models\\Rocket.obj")
-        elif func_ran == "Email":
-            obj_file("master\\3D_Models\\Email.obj")
+        if func_ran in self.modeldata:
+            draw_obj(self.modeldata[func_ran])
         else:
             Cube()
 

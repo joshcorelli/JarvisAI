@@ -1,4 +1,5 @@
 chrome
 steam
-overwatch
 epic games
+spot
+overwolf
