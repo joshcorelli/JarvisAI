@@ -1,2 +1,2 @@
-myGmail = "joshuacorelli@gmail.com"
-password = "kaiduugslgpymmea"
+myGmail = "jarvisai238@gmail.com"
+password = "xrgvmktzzfmcpzsn"
