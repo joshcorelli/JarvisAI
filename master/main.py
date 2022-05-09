@@ -192,6 +192,8 @@ def application():
     
     scrollbar.config( command = mylist.yview )
 
+    obj_reader.func_ran = "Application"
+
 def email():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
         i.destroy()
@@ -271,6 +273,8 @@ def email():
             i += 1
     
     scrollbar.config( command = mylist.yview )
+
+    obj_reader.func_ran = "Email"
 
 def mic_input():
     for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced

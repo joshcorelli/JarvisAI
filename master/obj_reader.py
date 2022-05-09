@@ -1,8 +1,10 @@
-# Author: http-samc
+# Author: Samarth Chitgopekar
 # Date: Oct 19, 2021
 # Title: Obj File Handler
 # Version: 1.0
 # Link: https://github.com/Rad-hi/3D-Rendering-Desktop-App/blob/main/src/obj_files_handler.py
+
+# Chitgopekar, S (Oct 19, 2021) Obj File Handler[Source Code] https://github.com/Rad-hi/3D-Rendering-Desktop-App/blob/main/src/obj_files_handler.py
 
 from cmath import sin
 from lib2to3.pgen2.token import OP
@@ -114,6 +116,10 @@ class frame(OpenGLFrame):
             obj_file("master\\3D_Models\Clock.obj")
         elif func_ran == "Website":
             obj_file("master\\3D_Models\WiFi.obj")
+        elif func_ran == "Application":
+            obj_file("master\\3D_Models\\Rocket.obj")
+        elif func_ran == "Email":
+            obj_file("master\\3D_Models\\Email.obj")
         else:
             Cube()
 
