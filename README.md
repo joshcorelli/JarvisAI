@@ -3,15 +3,17 @@ For our capstone project we are building a Jarvis AI library that Python has to 
 
 # Setup
 Download and install Anaconda:
-```https://www.anaconda.com/download/```
+https://www.anaconda.com/download/
 
 The python version we used was 3.9.7:
 ```conda activate my_env 
-conda install python=3.9.7```
+conda install python=3.9.7
+````
 
 Install Tensorflow CPU 3.6.0 (Also ensure you have the latest pip):
 ```python -m pip install --upgrade pip
-conda create -n CV pip tensorflow==3.6.0```
+conda create -n CV pip tensorflow==3.6.0
+````
 
 To import libraries, we first ran the command: ```conda activate CV```
 
