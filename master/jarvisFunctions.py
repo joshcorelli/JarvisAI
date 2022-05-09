@@ -46,7 +46,6 @@ def tell_me_about(topic):
 
 def get_news():
     news_obj = obj.news()
-    pprint.pprint(news_obj)
     return news_obj
 
 def get_dt():
@@ -210,7 +209,7 @@ def run_ai():
                 "news": "Example: 'news for today' ",
             }
             ans = """I can do lots of things, for example you can ask me time, date, weather in your city,
-            I can open websites for you, launch application and more. See the list of commands-"""
+            I can open websites for you, launch application and more."""
             print(ans)
             pprint.pprint(li_commands)
             t2s(ans)

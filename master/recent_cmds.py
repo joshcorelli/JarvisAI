@@ -13,7 +13,6 @@ def run_ai_cmd(str):
     
     entry_lbl = Label(cmd_cnvs, bg="#caf0f8", wraplength=250)
 
-    print(str.split(' ')[0])
     if str.split(' ')[0] == "Weather":
         s = str.index('|')
         e = str.index('|', s+1)
@@ -55,7 +54,6 @@ def read_file(str):
         file_lines.pop(num)
         file_lines.append(str)
     
-    print(file_lines)
     rd_file.seek(0)
     rd_file.truncate(0)
     rd_file.writelines(file_lines) #Writes contents of list in txt file.
