@@ -21,7 +21,8 @@ conda create -n CV pip tensorflow==3.6.0
 To import libraries, we first ran the command: ```conda activate CV```
 
 Below we will include a list of libraries we used to make this possible.
-```Library         Version         Command
+```
+Library         Version         Command
 ---------- | ------------- | ---------------------------------
 numpy      |    1.21.0     |    pip install numpy==1.21.0
 pyopengltk |    0.0.4      |    pip install pyopengltk==0.0.4
