@@ -142,6 +142,8 @@ def application():
         cmd_canvas.create_window(150, 150, window=entry_lbl)
         text_inp.delete(0, END)
 
+        recent_cmds.read_file("Application |" + str + "|\n") #DO NOT CHANGE
+
     def add_edit_app():
         for i in cmd_canvas.winfo_children(): #Destroy widgets in current frame to be replaced
             i.destroy()

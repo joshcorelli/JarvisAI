@@ -35,6 +35,11 @@ def run_ai_cmd(str):
     elif str == "Date and Time\n":
         entry_lbl.config(text=jarvisFunctions.get_dt())
         entry_lbl.place(relx=0.5, rely=0.5, anchor=CENTER)
+    elif str.split(' ')[0] == "Application":
+        s = str.index('|')
+        e = str.index('|', s+1)
+        entry_lbl.config(text=jarvisFunctions.get_application(str[s+1:e]))
+        entry_lbl.place(relx=0.5, rely=0.5, anchor=CENTER)
 
 
 def read_file(str):
