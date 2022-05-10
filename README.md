@@ -15,10 +15,10 @@ The python version we used was 3.9.7:
 conda install python=3.9.7
 ````
 
-Install Tensorflow CPU 3.6.0 (Also ensure you have the latest pip):
+Install Tensorflow CPU 2.6.0 (Also ensure you have the latest pip):
 ```
 python -m pip install --upgrade pip
-conda create -n CV pip tensorflow==3.6.0
+conda create -n CV pip tensorflow==2.6.0
 ````
 
 To import libraries, we first ran the command: ```conda activate CV```
