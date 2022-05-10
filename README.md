@@ -30,4 +30,7 @@ numpy      |    1.21.0     |    pip install numpy==1.21.0
 pyopengltk |    0.0.4      |    pip install pyopengltk==0.0.4
 PyOpenGL   |    3.1.6      |    pip install pyopengl==3.1.6
 JarvisAI   |    3.7.1      |    pip install jarvisai==3.7.1
+keras      |    2.6.0      |    pip install keras==2.6.0
+pipwin     |    0.5.0      |    pip install pipwin==0.5.0
+pyaudio    |    0.2.11     |    pipwin install pyaudio==0.2.11
 ````
