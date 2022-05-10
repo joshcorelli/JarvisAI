@@ -6,11 +6,12 @@ This project was important, as it showcased the knowledge that we gained over th
 
 # Setup
 Download and install Anaconda:
+Make sure to check both boxes when promted to "add anaconda3 to your path environmental variables" and "register anaconda3 as my default Python 3.9".
+
 https://www.anaconda.com/download/
 
 The python version we used was 3.9.7:
 ```
-conda activate my_env 
 conda install python=3.9.7
 ````
 
@@ -25,12 +26,11 @@ To import libraries, we first ran the command: ```conda activate CV```
 Below we will include a list of libraries we used to make this possible.
 ```
 Library         Version         Command
----------- | ------------- | ---------------------------------
-numpy      |    1.21.0     |    pip install numpy==1.21.0
-pyopengltk |    0.0.4      |    pip install pyopengltk==0.0.4
-PyOpenGL   |    3.1.6      |    pip install pyopengl==3.1.6
-JarvisAI   |    3.7.1      |    pip install jarvisai==3.7.1
-keras      |    2.6.0      |    pip install keras==2.6.0
-pipwin     |    0.5.0      |    pip install pipwin==0.5.0
-pyaudio    |    0.2.11     |    pipwin install pyaudio==0.2.11
+--------------- | ------------- | ---------------------------------
+JarvisAI        |    3.7.1      |    pip install JarvisAI==3.7.1
+numpy           |    1.21.0     |    pip install numpy==1.21.0
+pyopengltk      |    0.0.4      |    pip install pyopengltk==0.0.4
+keras           |    2.6.0      |    pip install keras==2.6.0
+pyaudio         |    0.2.11     |    pipwin install pyaudio==0.2.11
+en_core_web_sm  |               |    python -m spacy download en_core_web_sm
 ````
